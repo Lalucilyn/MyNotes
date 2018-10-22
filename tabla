@@ -1,0 +1,44 @@
+Código para tabla paginada en VueJs con BootStrap (testeado, funciona)
+
+//Elementos para el template//
+<div>
+<b-table striped 
+    :items="items" 
+    :fields="fields" 
+    :current-page="currentPage" 
+    :per-page="perPage"
+    >
+    </b-table>
+    <b-pagination 
+    :total-rows="totalRows" 
+    :per-page="perPage" 
+    v-model="currentPage" 
+    align="center"/>
+ </div>
+
+ //script//
+
+ <script>
+ const items=[
+ {"atributo":"items","función":"Crea celdas de data"},
+ {"atributo":"fields","función":"Crea celdas de th"}, 
+ {"atributo":"current-page", "función":"Determina en qué página arranca"},
+ {"atributo":"per-page","función":"Determina cuántos ítems muestra por página"},
+ {"atributo":"total-rows","función":"Determina cuántos numeritos aparecen en el paginador"}]
+
+export default {
+  name: 'hello',
+  data () {
+   return {
+    msg: 'Soy una tabla paginada',
+    items:items,
+     fields:[{key:"atributo"}, {key:"función"}],
+     currentPage: 1,
+     perPage: 2,
+     totalRows:items.length
+    }
+  }
+  
+}
+</script>
+
