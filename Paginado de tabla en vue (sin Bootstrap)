@@ -1,0 +1,56 @@
+Paginado de tabla en vue (sin Bootstrap)
+
+Markup
+  <table>
+    <tr>
+      <th v-for="field in fields">{{field.key}}</th>
+    </tr>
+      <tr v-for="item in getCurrentItems">
+        <td v-for="value in item">
+          {{getValue(value)}} <!--Para reemplazar los booleanos con símbolos-->
+        </td>
+      </tr>
+        <span @click="remove">previous</span>
+        <span @click="add">next</span>
+  </table>
+
+  Scripts
+  data () {
+   return {
+     currentPage:0,
+     perPage:2, // o la cantidad de páginas que quiera
+    }
+  },
+  methods:{
+	add(){
+      this.currentPage<(Math.ceil(this.items.length/this.perPage) - 1) && this.currentPage++
+    },
+
+    remove(){
+      this.currentPage>0 && this.currentPage--
+    },
+
+    getValue(value){
+      if(typeof value==="boolean"){
+        return value===true?"⚠️":"✔️"
+      }else{
+       return value
+      }
+    }    
+  },
+
+  computed:{
+    getCurrentItems(){
+      let myItems = [...this.items]
+      return myItems.slice(this.current * 2,this.current * 2 + 2);
+    }
+  }
+
+Pasaje de props:
+Defino las props que necesito en mi instancia:
+Export default{
+	name:"minombre"
+	props:['mi prop']
+}   
+
+Y defino la prop en la tag en mi componente padre, tal como en React.
